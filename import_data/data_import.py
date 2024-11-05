@@ -5,7 +5,11 @@
 - import_data_from_google_sheets(url): Импортирует данные из указанной таблицы Google Sheets и возвращает их в формате pandas DataFrame.
 """
 
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
 import pandas as pd
+import logging
+logger = logging.getLogger(__name__)
 
 def import_data_from_google_sheets(url: str) -> pd.DataFrame:
     """
@@ -19,11 +23,10 @@ def import_data_from_google_sheets(url: str) -> pd.DataFrame:
 
 # ======================================================================================================================
 
-import gspread
-from oauth2client.service_account import ServiceAccountCredentials
-import pandas as pd
+
 
 def get_google_sheet_data(spreadsheet_name):
+    logging.info(f"Получение данных из Google Sheets {spreadsheet_name}...")
     # Определяем область доступа
     scope = [
         'https://spreadsheets.google.com/feeds',
@@ -96,6 +99,8 @@ def get_google_sheet_data(spreadsheet_name):
             fourth_column_list_b = fourth_column_second_sheet[mid_index_fourth:]  # Второй список
 
         data_frames[worksheet.title] = df
+
+    logging.info(f"... выполнен успешно.")
 
     return data_frames, ugly_v_grad, nested_list_2a, nested_list_2b, third_column_first_sheet, third_column_list_a, third_column_list_b, fourth_column_list_a, fourth_column_list_b  # Возвращаем DataFrames и списки
 

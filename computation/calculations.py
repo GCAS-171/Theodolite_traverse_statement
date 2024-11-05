@@ -6,6 +6,8 @@
 """
 
 import pandas as pd
+import logging
+logger = logging.getLogger(__name__)
 
 def perform_calculations(df: pd.DataFrame) -> dict:
     """
@@ -15,4 +17,5 @@ def perform_calculations(df: pd.DataFrame) -> dict:
     :return: Словарь с результатами вычислений.
     """
     # Заглушка: возвращаем пустой словарь для тестирования.
+    logger.info('Выполняются необходимые вычисления над данными.')
     return {}

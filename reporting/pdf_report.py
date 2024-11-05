@@ -4,6 +4,8 @@
 Функции:
 - generate_pdf_report(results): Генерирует PDF-отчет на основе результатов вычислений.
 """
+import logging
+logger = logging.getLogger(__name__)
 
 def generate_pdf_report(results: dict):
     """
@@ -12,4 +14,5 @@ def generate_pdf_report(results: dict):
     :param results: Словарь с результатами вычислений.
     """
     # Заглушка: просто печатаем результаты для тестирования.
-    print("Генерация PDF отчета с результатами:", results)
+    logger.info("Генерирация PDF-отчета на основе результатов вычислений.")
+    logger.debug("Генерация PDF отчета с результатами:", results)

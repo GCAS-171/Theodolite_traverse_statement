@@ -4,6 +4,8 @@
 Функции:
 - generate_web_report(results): Генерирует веб-отчет на основе результатов вычислений.
 """
+import logging
+logger = logging.getLogger(__name__)
 
 def generate_web_report(results: dict):
     """
@@ -12,4 +14,5 @@ def generate_web_report(results: dict):
     :param results: Словарь с результатами вычислений.
     """
     # Заглушка: просто печатаем результаты для тестирования.
-    print("Генерация веб отчета с результатами:", results)
+    logger.info("Генерирация веб-отчета на основе результатов вычислений")
+    logger.debug("Генерация веб отчета с результатами:", results)
