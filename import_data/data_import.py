@@ -99,8 +99,14 @@ def get_google_sheet_data(spreadsheet_name):
 
     return data_frames, ugly_v_grad, nested_list_2a, nested_list_2b, third_column_first_sheet, third_column_list_a, third_column_list_b, fourth_column_list_a, fourth_column_list_b  # Возвращаем DataFrames и списки
 
+
+def enother_get_data(spreadsheet_name: str):
+    dataframes, *lishnie_dannye = get_google_sheet_data(spreadsheet_name)
+    return dataframes
+
 if __name__ == '__main__':
     spreadsheet_name = 'project'  # Замените на название вашей таблицы
+    ddd = enother_get_data(spreadsheet_name)
     data, ugly_v_grad, nested_list_2a, nested_list_2b, third_column_values, third_column_list_a, third_column_list_b, fourth_column_list_a, fourth_column_list_b = get_google_sheet_data(spreadsheet_name)
 
     # Выводим данные из каждого листа
@@ -128,3 +134,5 @@ if __name__ == '__main__':
     print(fourth_column_list_a)
     print("Y конечной точки:")
     print(fourth_column_list_b)
+
+    print(f"{ddd=}")
