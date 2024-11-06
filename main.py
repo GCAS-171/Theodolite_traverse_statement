@@ -5,6 +5,7 @@ from computation.calculations import perform_calculations
 from reporting.web_report import generate_web_report
 from reporting.pdf_report import generate_pdf_report
 
+
 import logging
 logger = logging.getLogger(__name__)
 
