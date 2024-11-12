@@ -8,6 +8,8 @@
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import pandas as pd
+import numpy as np
+
 import logging
 logger = logging.getLogger(__name__)
 
@@ -107,7 +109,19 @@ def get_google_sheet_data(spreadsheet_name):
 
 def enother_get_data(spreadsheet_name: str):
     dataframes, *lishnie_dannye = get_google_sheet_data(spreadsheet_name)
-    return dataframes
+    logging.info(f"Передаваемые данные: {dataframes}")
+    point_first = (dataframes["sheet2"].iloc[0, 2], # X первой точки
+                   dataframes["sheet2"].iloc[0, 3], # Y первой точки
+                   dataframes["sheet2"].iloc[0, 1], # дирекционный угол начальный
+                   dataframes["sheet2"].iloc[0, 0], # название (имя) первой точки
+                   dataframes["sheet2"].iloc[0, 4]) # название (имя) начальной точки
+    point_last  = (dataframes["sheet2"].iloc[1, 2], # X последней точки
+                   dataframes["sheet2"].iloc[1, 3], # Y последней точки
+                   dataframes["sheet2"].iloc[1, 1], # дирекционный угол конечный
+                   dataframes["sheet2"].iloc[1, 0], # название (имя) последней точки
+                   dataframes["sheet2"].iloc[1, 4]) # название (имя) конечной точки
+    # logging.info(point_first, point_last)
+    return dataframes["sheet1"], point_first, point_last
 
 if __name__ == '__main__':
     spreadsheet_name = 'project'  # Замените на название вашей таблицы

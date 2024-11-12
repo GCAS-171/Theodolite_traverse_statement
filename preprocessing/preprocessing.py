@@ -6,12 +6,13 @@
 """
 
 import pandas as pd
+import numpy as np
 
 import logging
 logger = logging.getLogger(__name__)
 
 
-def preprocess_data(df: pd.DataFrame) -> pd.DataFrame:
+def preprocess_data(dataframes: pd.DataFrame, point_first: np.float64, point_last: np.float64) -> pd.DataFrame:
     """
     Выполняет предварительную обработку данных.
 
@@ -21,4 +22,4 @@ def preprocess_data(df: pd.DataFrame) -> pd.DataFrame:
     # Заглушка: возвращаем тот же DataFrame без изменений.
 
     logger.info('Выполняется предварительная обработка данных.')
-    return df
+    return dataframes

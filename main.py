@@ -19,8 +19,14 @@ def main():
     # google_sheet_url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vT3_4_4_4_4_4_4_4_4_4_4_4_4_4_4_4_4_4_4_
     google_sheet_name = "project"
 
-    dataframes = enother_get_data(google_sheet_name)
-    datapreprocessing = preprocess_data(dataframes)
+    dataframe, point_first, point_last = enother_get_data(google_sheet_name)
+
+    dataframe["Градусы"] = dataframe["Измеренные углы"]
+
+    df["угол"] = df["градусы"] + df["минуты"] / 60 + df["секунды"] / 3600
+
+    logging.info(dataframe.info())
+    datapreprocessing = preprocess_data(dataframe, point_first, point_last)
     result = perform_calculations(datapreprocessing)
     html_doc = generate_web_report(result)
     pdf_doc = generate_pdf_report(result)
