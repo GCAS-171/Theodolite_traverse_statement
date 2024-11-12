@@ -67,11 +67,11 @@ def get_google_sheet_data(spreadsheet_name):
                 try:
                     numbers = list(map(int, value.split(',')))  # Преобразуем строки в целые числа
                     if len(numbers) == 3:  # Проверяем, что у нас три числа
-                        ugly_v_grad.append(numbers)  # Добавляем в составной список
+                        ugly_v_grad.append(numbers[0]+numbers[1]/60+numbers[2]/3600)  # Добавляем в составной список
                 except ValueError:
                     continue  # Игнорируем ошибки преобразования
             # Извлечение третьего столбца, игнорируя последнее значение
-            third_column_first_sheet = df.iloc[:, 2].tolist()[:-1]  # Сохраняем третий столбец в список без последнего значения
+            third_column_first_sheet = df.iloc[:, 2].tolist()  # Сохраняем третий столбец в список без последнего значения
 
         elif i == 1:  # Проверяем, является ли это вторым листом
             # Извлечение второго столбца и преобразование в списки с тремя целыми числами
@@ -108,8 +108,13 @@ def get_google_sheet_data(spreadsheet_name):
 
 
 def enother_get_data(spreadsheet_name: str):
-    dataframes, *lishnie_dannye = get_google_sheet_data(spreadsheet_name)
+    dataframes,  ugly_v_grad, _, __, prologenie, *lishnie_dannye = get_google_sheet_data(spreadsheet_name)
+    dataframes["sheet1"]["Десятичный угол"] = ugly_v_grad
+    dataframes["sheet1"]["Проложение в метрах"] = prologenie
+    dataframes["sheet1"].drop(columns=['Измеренные углы', 'Горизонт прол'], inplace=True)
+
     logging.info(f"Передаваемые данные: {dataframes}")
+
     point_first = (dataframes["sheet2"].iloc[0, 2], # X первой точки
                    dataframes["sheet2"].iloc[0, 3], # Y первой точки
                    dataframes["sheet2"].iloc[0, 1], # дирекционный угол начальный
@@ -120,6 +125,7 @@ def enother_get_data(spreadsheet_name: str):
                    dataframes["sheet2"].iloc[1, 1], # дирекционный угол конечный
                    dataframes["sheet2"].iloc[1, 0], # название (имя) последней точки
                    dataframes["sheet2"].iloc[1, 4]) # название (имя) конечной точки
+
     # logging.info(point_first, point_last)
     return dataframes["sheet1"], point_first, point_last
 
