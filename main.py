@@ -21,16 +21,17 @@ def main():
 
     dataframe, point_first, point_last = enother_get_data(google_sheet_name)
 
-    dataframe["Градусы"] = dataframe["Измеренные углы"]
-
-    df["угол"] = df["градусы"] + df["минуты"] / 60 + df["секунды"] / 3600
+    # dataframe["Градусы"] = dataframe["Измеренные углы"]
+    #
+    # df["угол"] = df["градусы"] + df["минуты"] / 60 + df["секунды"] / 3600
 
     logging.info(dataframe.info())
     datapreprocessing = preprocess_data(dataframe, point_first, point_last)
-    result = perform_calculations(datapreprocessing)
+    result = perform_calculations(dataframe, point_first, point_last)
     html_doc = generate_web_report(result)
     pdf_doc = generate_pdf_report(result)
 
     
 if __name__ == "__main__":
     main()
+    #внести в изначальную таблицу значения о приборе

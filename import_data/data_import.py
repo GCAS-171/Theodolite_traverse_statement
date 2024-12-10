@@ -115,14 +115,18 @@ def enother_get_data(spreadsheet_name: str):
 
     logging.info(f"Передаваемые данные: {dataframes}")
 
+    def u_conv(ugol:str):
+        g, m, s = ugol.split(', ')
+        return int(g) + int(m) / 60 + int(s) /3600
+
     point_first = (dataframes["sheet2"].iloc[0, 2], # X первой точки
                    dataframes["sheet2"].iloc[0, 3], # Y первой точки
-                   dataframes["sheet2"].iloc[0, 1], # дирекционный угол начальный
+                   u_conv(dataframes["sheet2"].iloc[0, 1]),# дирекционный угол начальный
                    dataframes["sheet2"].iloc[0, 0], # название (имя) первой точки
                    dataframes["sheet2"].iloc[0, 4]) # название (имя) начальной точки
     point_last  = (dataframes["sheet2"].iloc[1, 2], # X последней точки
                    dataframes["sheet2"].iloc[1, 3], # Y последней точки
-                   dataframes["sheet2"].iloc[1, 1], # дирекционный угол конечный
+                   u_conv(dataframes["sheet2"].iloc[1, 1]), # дирекционный угол конечный
                    dataframes["sheet2"].iloc[1, 0], # название (имя) последней точки
                    dataframes["sheet2"].iloc[1, 4]) # название (имя) конечной точки
 
@@ -142,3 +146,11 @@ if __name__ == '__main__':
 
 
     print(f"{ddd=}")
+import math
+u= 180
+ur = math.pi
+# df["угол"] = df["градусы"] + df["минуты"] / 60 + df["секунды"] / 3600
+# df["угол_рад"] = df["угол"]*math.pi/180
+#bпр= (dataframes["sheet2"].iloc[0, 1]-dataframes["sheet2"].iloc[1, 1]+180*df["угол"].count())
+#print(bпр)
+
